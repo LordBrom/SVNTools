@@ -1,0 +1,34 @@
+[{
+    "id": "svncommit",
+    "caption": "SVN Tools",
+    "mnemonic": "V",
+    "children":
+    	[
+		{ "caption": "-" },{
+            "caption": "Commit Scope",
+            "mnemonic": "s",
+            "children": 
+            [
+                {
+                    "id":"svn_scope_repo", "command": "svn_set_scope", "args": { "scope": "repo"}, "caption": "Repository", "checkbox": "true"
+                },{
+                    "id":"svn_scope_file", "command": "svn_set_scope", "args": { "scope": "file"}, "caption": "File", "checkbox": "true"
+                },{
+                    "id":"svn_scope_dir" , "command": "svn_set_scope", "args": { "scope": "dir" }, "caption": "Directory", "checkbox": "true"
+                }
+            ]
+        },
+        { "caption": "-" },
+		{ "caption": "Commit to SVN…", "command": "svn_commit" },
+		{ "caption": "Commit to SVN (Last Comment)…", "command": "svn_commit_last" },
+		{ "caption": "Commit to SVN (Blank Comment)…", "command": "svn_commit_blank" },
+		{ "caption": "Commit to SVN (History)…", "command": "svn_commit_history" },
+		{ "caption": "-" },
+		{ "caption": "Show changes in file", "command": "svn_show_changes" },
+		{ "caption": "Discard changes in file", "command": "svn_discard_changes" },
+		{ "caption": "Update repository", "command": "svn_update_repo" },
+        { "caption": "Add file to repository", "command": "svn_add_file" },
+		{ "caption": "Get repository status", "command": "svn_repo_status" },
+		{ "caption": "-", "id": "end" }
+	]
+}]

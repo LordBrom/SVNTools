@@ -1,0 +1,69 @@
+[
+	{
+        "caption": "Preferences",
+        "mnemonic": "n",
+        "id": "preferences",
+        "children":  
+        [{
+        	"caption": "Package Settings",
+            "mnemonic": "P",
+            "id": "package-settings",
+            "children": 
+            [{
+            	"caption": "SVN Tools",
+           		"mnemonic": "V",
+                "children": 
+                [{ 
+                    "caption": "-" 
+                },{
+                    "caption": "Commit Scope",
+                    "mnemonic": "s",
+                    "children": 
+                    [
+                        {
+                            "command": "svn_set_scope", "args": {"scope": "repo"}, "caption": "Repository", "checkbox": "true"
+                        },{
+                            "command": "svn_set_scope", "args": {"scope": "file"}, "caption": "File", "checkbox": "true"
+                        },{
+                            "command": "svn_set_scope", "args": {"scope": "dir" }, "caption": "Directory", "checkbox": "true"
+                        }
+                    ]
+                },{
+                    "caption": "-" 
+                },{
+                    "command": "open_file", "args": {"file": "${packages}/SVNCommit/Preferences.sublime-settings"},"caption": "Settings – Default"
+                },{
+                    "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"},"caption": "Settings – User"
+                },{ 
+                    "caption": "-" 
+                },{
+                    "command": "open_file", "args": {"file": "${packages}/SVNCommit/Default (Windows).sublime-keymap"},"caption": "Key Bindings – Default"
+                },{
+                    "command": "open_file", "args": {"file": "${packages}/User/Default (Windows).sublime-keymap"},"caption": "Key Bindings – User"
+                },{ 
+                    "caption": "-" 
+                }]
+            }]
+        }]
+    },
+    {  
+        "id": "svncommit",
+        "caption": "SVN Tools",
+        "mnemonic": "V",
+        "children":
+        [
+            { "caption": "-" },
+            { "caption": "Commit to SVN…",                 "command": "svn_commit"          },
+            { "caption": "Commit to SVN (Last Comment)…",  "command": "svn_commit_last"     },
+            { "caption": "Commit to SVN (Blank Comment)…", "command": "svn_commit_blank"    },
+            { "caption": "Commit to SVN (History)",        "command": "svn_commit_history"  },
+            { "caption": "-"                                                                },
+            { "caption": "Show changes in file",           "command": "svn_show_changes"    },
+            { "caption": "Discard changes in file",        "command": "svn_discard_changes" },
+            { "caption": "Update repository",              "command": "svn_update_repo"     },
+            { "caption": "Add file to repository",         "command": "svn_add_file"        },
+            { "caption": "Get repository status",          "command": "svn_repo_status"     },
+            { "caption": "-", "id": "end" }
+        ]
+    }
+]
