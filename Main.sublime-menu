@@ -3,22 +3,22 @@
         "caption": "Preferences",
         "mnemonic": "n",
         "id": "preferences",
-        "children":  
+        "children":
         [{
         	"caption": "Package Settings",
             "mnemonic": "P",
             "id": "package-settings",
-            "children": 
+            "children":
             [{
             	"caption": "SVN Tools",
            		"mnemonic": "V",
-                "children": 
-                [{ 
-                    "caption": "-" 
+                "children":
+                [{
+                    "caption": "-"
                 },{
                     "caption": "Commit Scope",
-                    "mnemonic": "s",
-                    "children": 
+
+                    "children":
                     [
                         {
                             "command": "svn_set_scope", "args": {"scope": "repo"}, "caption": "Repository", "checkbox": "true"
@@ -29,30 +29,45 @@
                         }
                     ]
                 },{
-                    "caption": "-" 
+                    "caption": "-"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/SVNCommit/Preferences.sublime-settings"},"caption": "Settings – Default"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"},"caption": "Settings – User"
-                },{ 
-                    "caption": "-" 
+                },{
+                    "caption": "-"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/SVNCommit/Default (Windows).sublime-keymap"},"caption": "Key Bindings – Default"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/User/Default (Windows).sublime-keymap"},"caption": "Key Bindings – User"
-                },{ 
-                    "caption": "-" 
+                },{
+                    "caption": "-"
                 }]
             }]
         }]
     },
-    {  
+    {
         "id": "svncommit",
         "caption": "SVN Tools",
         "mnemonic": "V",
         "children":
         [
-            { "caption": "-" },
+            {
+                    "caption": "-"
+                },{
+                    "caption": "Commit Scope",
+
+                    "children":
+                    [
+                        {
+                            "command": "svn_set_scope", "args": {"scope": "repo"}, "caption": "Repository", "checkbox": "true"
+                        },{
+                            "command": "svn_set_scope", "args": {"scope": "file"}, "caption": "File", "checkbox": "true"
+                        },{
+                            "command": "svn_set_scope", "args": {"scope": "dir" }, "caption": "Directory", "checkbox": "true"
+                        }
+                    ]
+                },{ "caption": "-" },
             { "caption": "Commit to SVN…",                 "command": "svn_commit"          },
             { "caption": "Commit to SVN (Last Comment)…",  "command": "svn_commit_last"     },
             { "caption": "Commit to SVN (Blank Comment)…", "command": "svn_commit_blank"    },
