@@ -123,7 +123,7 @@ class svnController():
 
 
 
-        return proc.communicate()[0].strip( );
+        return proc.communicate()[0].strip( ).decode();
 
     def add_history(self, log):
         history = svn_settings().get('SVN.history', [])
