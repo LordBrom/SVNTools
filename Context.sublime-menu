@@ -1,13 +1,11 @@
 [{
-    "id": "svncommit",
+    "id": "svntools",
     "caption": "SVN Tools",
-    "mnemonic": "V",
     "children":
     	[
 		{ "caption": "-" },{
             "caption": "Commit Scope",
-            "mnemonic": "s",
-            "children": 
+            "children":
             [
                 {
                     "id":"svn_scope_repo", "command": "svn_set_scope", "args": { "scope": "repo"}, "caption": "Repository", "checkbox": "true"

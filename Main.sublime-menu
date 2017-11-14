@@ -31,13 +31,13 @@
                 },{
                     "caption": "-"
                 },{
-                    "command": "open_file", "args": {"file": "${packages}/SVNCommit/Preferences.sublime-settings"},"caption": "Settings – Default"
+                    "command": "open_file", "args": {"file": "${packages}/SVNTools/Preferences.sublime-settings"},"caption": "Settings – Default"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"},"caption": "Settings – User"
                 },{
                     "caption": "-"
                 },{
-                    "command": "open_file", "args": {"file": "${packages}/SVNCommit/Default (Windows).sublime-keymap"},"caption": "Key Bindings – Default"
+                    "command": "open_file", "args": {"file": "${packages}/SVNTools/Default (Windows).sublime-keymap"},"caption": "Key Bindings – Default"
                 },{
                     "command": "open_file", "args": {"file": "${packages}/User/Default (Windows).sublime-keymap"},"caption": "Key Bindings – User"
                 },{
@@ -47,7 +47,7 @@
         }]
     },
     {
-        "id": "svncommit",
+        "id": "svntools",
         "caption": "SVN Tools",
         "mnemonic": "V",
         "children":
