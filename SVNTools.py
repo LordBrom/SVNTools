@@ -138,11 +138,9 @@ class svnController():
         window = sublime.active_window()
         output = window.get_output_panel("SVN");
 
-        edit = output.begin_edit()
-
-        output.insert(edit, 0, outputStr)
+        output.run_command("insert", {"characters": outputStr})
         window.run_command("show_panel", {"panel": "output.SVN"});
-        edit = output.end_edit(edit)
+
 
     def do_commit(self, message):
         if self.svnDir == None:
@@ -309,7 +307,7 @@ class svnShowChangesCommand(sublime_plugin.TextCommand, svnController):
             newView = sublime.active_window().new_file();
             newView.insert(edit, 0, procText);
             newView.set_syntax_file("Packages/Diff/Diff.tmLanguage");
-            newView.set_scratch(1);
+            newView.set_scratch(True);
         else:
             sublime.status_message("The files match.");
 
@@ -370,8 +368,6 @@ class svnUpdateRepoCommand(sublime_plugin.TextCommand, svnController):
             self.scope = 'Repository'
 
         procTextPre = self.run_svn_command([ "svn", "update", self.svnDir]);
-
-        print(type(procTextPre))
 
         procText = procTextPre.strip( ).split( "\n" )[-1].strip( );
 
