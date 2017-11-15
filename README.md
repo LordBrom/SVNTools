@@ -1,11 +1,11 @@
-# SVNCommit
+# SVNTools
 A Sublime Text 2 plugin for interacting with SVN.
 
 ## Installation
 To install to ST2:
 
 1. Run command "Package Control: Add Repository"
-2. Enter "https://github.com/LordBrom/SVNCommit"
+2. Enter "https://github.com/LordBrom/SVNTools"
 3. Run command "Package Control: Install Package"
 
 ## Hotkeys

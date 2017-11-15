@@ -6,10 +6,10 @@ import functools
 import datetime
 import threading
 
-sublime.avibeSVNCommitTicketNo = ""
-sublime.avibeSVNCommitThisComment = ""
-sublime.avibeSVNCommitLastComment = ""
-sublime.avibeSVNCommitScopes = ['Commit Scope: Full Repository','Commit Scope: Current File','Commit Scope: Current Directory']
+sublime.avibeSVNToolsTicketNo = ""
+sublime.avibeSVNToolsThisComment = ""
+sublime.avibeSVNToolsLastComment = ""
+sublime.avibeSVNToolsScopes = ['Commit Scope: Full Repository','Commit Scope: Current File','Commit Scope: Current Directory']
 sublime.avibeSVNScopes = ['Current File','Current Directory','Full Repository']
 
 threadLock = threading.Lock()
@@ -18,10 +18,7 @@ threads = []
 def svn_settings():
     return sublime.load_settings( 'Preferences.sublime-settings' )
 
-def svn_set_status_items(self):
-    if self.view == None:
-        self.view = self.active_window().active_view()
-    view = self.view
+def svn_set_status_items(self, view):
 
     if svn_settings().get('SVN.show_status_bar_info', 1) == 1:
         self.svnDir = self.get_svn_dir()
@@ -32,7 +29,6 @@ def svn_set_status_items(self):
         else:
             view.set_status('AAAsvnTool', 'SVN:' + u'\u2714')
             view.set_status('AABsvnTool', 'Scope: ' + str(svn_settings().get('SVN.commit_scope', 'repo')))
-
             if svn_settings().get('SVN.show_diff_in_status_bar', 0) == 1:
                 self.svnDir = self.get_scoped_path('file')
                 procText = self.run_svn_command([ "svn", "status", self.svnDir])
@@ -123,7 +119,7 @@ class svnController():
 
 
 
-        return proc.communicate()[0].strip( );
+        return proc.communicate()[0].strip( ).decode();
 
     def add_history(self, log):
         history = svn_settings().get('SVN.history', [])
@@ -142,11 +138,9 @@ class svnController():
         window = sublime.active_window()
         output = window.get_output_panel("SVN");
 
-        edit = output.begin_edit()
-
-        output.insert(edit, 0, outputStr)
+        output.run_command("insert", {"characters": outputStr})
         window.run_command("show_panel", {"panel": "output.SVN"});
-        edit = output.end_edit(edit)
+
 
     def do_commit(self, message):
         if self.svnDir == None:
@@ -191,23 +185,6 @@ class svnController():
         return is_first_commit
 
 
-
-class svnUpdateStatusBarThread(threading.Thread, svnController):
-    def __init__(self, view, name):
-        threading.Thread.__init__(self)
-        self.view = view
-        self.name = name
-
-    def start(self):
-        self.run()
-
-    def run(self):
-        threadLock.acquire()
-        # for num in range(100):
-        #     print(str(num))
-        svn_set_status_items(self)
-        threadLock.release()
-
 class ChangeLog(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         procText = self.run_svn_command([ "svn", "log", "-v", self.svnDir]);
@@ -216,7 +193,7 @@ class ChangeLog(sublime_plugin.TextCommand, svnController):
 
 
 
-class svnCommitCommand(sublime_plugin.TextCommand, svnController):
+class svnToolsCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
@@ -225,38 +202,38 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
         self.svnDir = self.get_scoped_path(svn_settings().get('SVN.commit_scope', 'repo'))
 
         sublime.active_window().run_command("save")
-        sublime.active_window().show_input_panel("Ticket number:", sublime.avibeSVNCommitTicketNo, self.on_ticket, None, None)
+        sublime.active_window().show_input_panel("Ticket number:", sublime.avibeSVNToolsTicketNo, self.on_ticket, None, None)
         pass
 
     def on_ticket(self, text):
         try:
-            sublime.avibeSVNCommitTicketNo = text
+            sublime.avibeSVNToolsTicketNo = text
 
-            sublime.active_window().show_input_panel("Comment:", sublime.avibeSVNCommitThisComment, self.on_comment, None, None)
+            sublime.active_window().show_input_panel("Comment:", sublime.avibeSVNToolsThisComment, self.on_comment, None, None)
         except ValueError:
             pass
 
     def on_comment(self, text):
-        sublime.avibeSVNCommitThisComment = text
-        sublime.avibeSVNCommitLastComment = sublime.avibeSVNCommitTicketNo
+        sublime.avibeSVNToolsThisComment = text
+        sublime.avibeSVNToolsLastComment = sublime.avibeSVNToolsTicketNo
 
-        if len( sublime.avibeSVNCommitLastComment ):
-            sublime.avibeSVNCommitLastComment = "#" + sublime.avibeSVNCommitLastComment + ": "
+        if len( sublime.avibeSVNToolsLastComment ):
+            sublime.avibeSVNToolsLastComment = "#" + sublime.avibeSVNToolsLastComment + ": "
 
-        sublime.avibeSVNCommitLastComment = sublime.avibeSVNCommitLastComment + sublime.avibeSVNCommitThisComment
+        sublime.avibeSVNToolsLastComment = sublime.avibeSVNToolsLastComment + sublime.avibeSVNToolsThisComment
 
-        self.do_commit(sublime.avibeSVNCommitLastComment)
+        self.do_commit(sublime.avibeSVNToolsLastComment)
 
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnCommitLastCommand(sublime_plugin.TextCommand, svnController):
+class svnToolsLastCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
             return;
 
-        if( 0 == len( sublime.avibeSVNCommitLastComment )):
+        if( 0 == len( sublime.avibeSVNToolsLastComment )):
             sublime.status_message( "Commit with comment (CTRL-ALT-B twice) to use this shortcut." );
             return
 
@@ -264,12 +241,12 @@ class svnCommitLastCommand(sublime_plugin.TextCommand, svnController):
 
         sublime.active_window().run_command("save")
 
-        self.do_commit(sublime.avibeSVNCommitLastComment)
+        self.do_commit(sublime.avibeSVNToolsLastComment)
 
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnCommitBlankCommand(sublime_plugin.TextCommand, svnController):
+class svnToolsBlankCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
@@ -284,7 +261,7 @@ class svnCommitBlankCommand(sublime_plugin.TextCommand, svnController):
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnCommitHistoryCommand(sublime_plugin.TextCommand, svnController):
+class svnToolsHistoryCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
@@ -330,7 +307,7 @@ class svnShowChangesCommand(sublime_plugin.TextCommand, svnController):
             newView = sublime.active_window().new_file();
             newView.insert(edit, 0, procText);
             newView.set_syntax_file("Packages/Diff/Diff.tmLanguage");
-            newView.set_scratch(1);
+            newView.set_scratch(True);
         else:
             sublime.status_message("The files match.");
 
@@ -391,7 +368,8 @@ class svnUpdateRepoCommand(sublime_plugin.TextCommand, svnController):
             self.scope = 'Repository'
 
         procTextPre = self.run_svn_command([ "svn", "update", self.svnDir]);
-        procText = procTextPre.strip( ).split( '\n' )[-1].strip( );
+
+        procText = procTextPre.strip( ).split( "\n" )[-1].strip( );
 
         if "At revision" in procText:
             procText = self.scope + " is already up to date."
@@ -509,35 +487,9 @@ class svnLogParser(svnController):
 
         self.show_output_panel(result)
 
-
 class svnEventListener(sublime_plugin.EventListener, svnController):
-    def on_activated(self, view):
-        thread = svnUpdateStatusBarThread(view, view.file_name())
-        thread.start()
-        threads.append(thread)
+    def on_activated_async(self, view):
+        svn_set_status_items(self, view)
 
-    def on_post_save(self, view):
-        # print(str(threads))
-        thread = svnUpdateStatusBarThread(view, view.file_name())
-
-        thread.start()
-        threads.append(thread)
-
-        # while thread.isAlive():
-        #     print("alive")
-
-        # print('finished')
-
-
-class svnTestCommand(sublime_plugin.TextCommand, svnController):
-    def run(self, edit):
-        print('starting test command')
-        for t in threads:
-            if t.isAlive():
-                print("Thread '" + t.name + "' is alive." )
-            else:
-                threads.remove(t)
-                print("Thread '" + t.name + "' is dead." )
-
-        print('ending test command')
-
+    def on_post_save_async(self, view):
+        svn_set_status_items(self, view)
