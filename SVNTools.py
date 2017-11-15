@@ -227,7 +227,7 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnToolsLastCommand(sublime_plugin.TextCommand, svnController):
+class svnCommitLastCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
@@ -246,7 +246,7 @@ class svnToolsLastCommand(sublime_plugin.TextCommand, svnController):
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnToolsBlankCommand(sublime_plugin.TextCommand, svnController):
+class svnCommitBlankCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
@@ -261,7 +261,7 @@ class svnToolsBlankCommand(sublime_plugin.TextCommand, svnController):
     def is_enabled(self):
         return len(str(self.get_svn_dir())) != 0
 
-class svnToolsHistoryCommand(sublime_plugin.TextCommand, svnController):
+class svnCommitHistoryCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
