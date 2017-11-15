@@ -193,7 +193,7 @@ class ChangeLog(sublime_plugin.TextCommand, svnController):
 
 
 
-class svnToolsCommand(sublime_plugin.TextCommand, svnController):
+class svnCommitCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
         if len(self.svnDir) == 0:
