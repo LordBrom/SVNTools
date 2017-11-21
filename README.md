@@ -1,8 +1,8 @@
 # SVNTools
-A Sublime Text 2 plugin for interacting with SVN.
+A Sublime Text 3 plugin for interacting with SVN.
 
 ## Installation
-To install to ST2:
+To install to ST3:
 
 1. Run command "Package Control: Add Repository"
 2. Enter "https://github.com/LordBrom/SVNTools"
