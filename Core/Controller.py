@@ -18,6 +18,7 @@ def svn_set_status_items(self, view):
             view.erase_status('AACsvnTool')
         else:
             view.set_status('AAAsvnTool', 'SVN:' + u'\u2714')
+            view.set_status('AABsvnTool', 'Scope: ' + str(svn_settings().get('SVN.commit_scope', 'file')))
             if svn_settings().get('SVN.show_diff_in_status_bar', 0) == 1:
                 self.svnDir = self.get_scoped_path('file')
                 procText = self.run_svn_command([ "svn", "status", self.svnDir])
