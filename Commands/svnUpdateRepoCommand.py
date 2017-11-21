@@ -37,7 +37,7 @@ class svnUpdateRepoCommand(sublime_plugin.TextCommand, svnController):
             view = sublime.active_window().active_view();
             sublime.set_timeout(functools.partial(view.run_command, 'revert'), 0)
 
-            self.show_output_panel(procTextPre)
+            show_output_panel(procTextPre)
         else:
             procText = "Could not commit revision; check for conflicts or other issues."
 

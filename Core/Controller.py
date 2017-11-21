@@ -18,7 +18,6 @@ def svn_set_status_items(self, view):
             view.erase_status('AACsvnTool')
         else:
             view.set_status('AAAsvnTool', 'SVN:' + u'\u2714')
-            view.set_status('AABsvnTool', 'Scope: ' + str(svn_settings().get('SVN.commit_scope', 'file')))
             if svn_settings().get('SVN.show_diff_in_status_bar', 0) == 1:
                 self.svnDir = self.get_scoped_path('file')
                 procText = self.run_svn_command([ "svn", "status", self.svnDir])
@@ -41,6 +40,13 @@ def svn_set_status_items(self, view):
         view.erase_status('AAAsvnTool')
         view.erase_status('AABsvnTool')
         view.erase_status('AACsvnTool')
+
+def show_output_panel(outputStr):
+    window = sublime.active_window()
+    output = window.get_output_panel("SVN")
+
+    output.run_command("insert", {"characters": outputStr})
+    window.run_command("show_panel", {"panel": "output.SVN"})
 
 
 class svnController():
@@ -101,15 +107,15 @@ class svnController():
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT,
-                        startupinfo=startupinfo);
+                        startupinfo=startupinfo)
         except ValueError:
             print(ValueError)
-            sublime.status_message( "SVN command failed." );
+            sublime.status_message( "SVN command failed." )
             return ""
 
 
 
-        return proc.communicate()[0].strip( ).decode();
+        return proc.communicate()[0].strip( ).decode()
 
     def add_history(self, log):
         history = svn_settings().get('SVN.history', [])
@@ -119,22 +125,14 @@ class svnController():
                 history.remove(item)
 
         history.reverse()
-        history.append(log);
-        history.reverse();
+        history.append(log)
+        history.reverse()
         svn_settings().set('SVN.history', history)
         sublime.save_settings('Preferences.sublime-settings')
 
-    def show_output_panel(self, outputStr):
-        window = sublime.active_window()
-        output = window.get_output_panel("SVN");
-
-        output.run_command("insert", {"characters": outputStr})
-        window.run_command("show_panel", {"panel": "output.SVN"});
-
-
     def do_commit(self, message):
         if self.svnDir == None:
-            sublime.status_message( "No files selected to commit." );
+            sublime.status_message( "No files selected to commit." )
             return
 
         if svn_settings().get('SVN.confirm_new_files_on_commit', 1):
@@ -144,23 +142,23 @@ class svnController():
                 else:
                     return
 
-        procText = self.run_svn_command([ "svn", "commit", self.svnDir, "--message", message]);
+        procText = self.run_svn_command([ "svn", "commit", self.svnDir, "--message", message])
 
-        procText = procText.strip( ).split( '\n' )[-1].strip( );
+        procText = procText.strip( ).split( '\n' )[-1].strip( )
 
         if not "Committed revision" in procText:
             procText = "Could not commit revision; check for conflicts or other issues."
 
         self.add_history(message)
 
-        sublime.status_message( procText + " (" + message + ")" );
+        sublime.status_message( procText + " (" + message + ")" )
 
     def first_commit(self, message):
         is_first_commit = 1
 
         activeFile = self.get_scoped_path('file')
         logLimit = svn_settings().get('SVN.log_limit', 1000)
-        procText = self.run_svn_command([ "svn", "log", "--limit", str(logLimit), activeFile]);
+        procText = self.run_svn_command([ "svn", "log", "--limit", str(logLimit), activeFile])
         lineArray = procText.strip( ).split( '\n' )
 
         for line in lineArray:

@@ -79,7 +79,7 @@ class svnLogParser(svnController):
 
 
 
-        self.show_output_panel(result)
+        show_output_panel(result)
 
 class svnEventListener(sublime_plugin.EventListener, svnController):
     def on_activated_async(self, view):
