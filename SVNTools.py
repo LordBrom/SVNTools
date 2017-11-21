@@ -6,6 +6,7 @@ import functools
 import datetime
 
 from .Core.Controller import *
+from .Core.SetStatusItems import *
 
 from .Commands.svnSetScopeCommand import *
 from .Commands.svnAddFileCommand import *
