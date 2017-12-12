@@ -63,26 +63,37 @@ class svnController():
 
         return self.svnDir
 
-    def run_svn_command(self, params):
+    def run_svn_command(self, params, test = True, cmd = '', dir = ''):
         startupinfo = None
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         try:
-            proc = subprocess.Popen(
-                        params,
-                        stdin=subprocess.PIPE,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT,
-                        startupinfo=startupinfo)
+            if test:
+                proc = subprocess.Popen(
+                            params,
+                            stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            startupinfo=startupinfo)
+            else:
+                exePath = svn_settings().get('SVN.tortoiseproc_path', '')
+
+                if not os.path.isfile(exePath):
+                    sublime.error_message('can\'t find TortoiseProc.exe, please config setting file' '\n   --sublime-TortoiseSVN')
+
+                proc = subprocess.Popen('"'+exePath+'"' + ' /command:' + cmd + ' /path:"%s"' % dir , stdout=subprocess.PIPE)
+
         except ValueError:
             print(ValueError)
             sublime.status_message( "SVN command failed." )
             return ""
 
 
-
-        return proc.communicate()[0].strip( ).decode()
+        if test:
+            return proc.communicate()[0].strip( ).decode()
+        else:
+            return 'done'
 
     def add_history(self, log):
         history = svn_settings().get('SVN.history', [])

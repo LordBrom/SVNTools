@@ -78,6 +78,7 @@
             { "caption": "Update repository",              "command": "svn_update_repo"     },
             { "caption": "Add file to repository",         "command": "svn_add_file"        },
             { "caption": "Get repository status",          "command": "svn_repo_status"     },
+            { "caption": "Show SVN log",                   "command": "svn_show_log"        },
             { "caption": "-", "id": "end" }
         ]
     }
