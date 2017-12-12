@@ -14,7 +14,7 @@ from .Commands.svnRepoStatusCommand import *
 from .Commands.svnUpdateRepoCommand import *
 from .Commands.svnDiscardChangesCommand import *
 from .Commands.svnShowChangesCommand import *
-# from .Commands.svnShowLogCommand import *
+from .Commands.svnShowLogCommand import *
 
 from .Commands.svnCommitCommand import *
 from .Commands.svnCommitLastCommand import *
