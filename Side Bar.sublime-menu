@@ -1,0 +1,6 @@
+[
+    { "caption": "-" },
+    { "caption": "Show SVN log",      "command": "svn_show_log", "args": {"paths":[]} },
+    // { "caption": "Update repository", "command": "svn_update_repo", "args": {"paths":[]} },
+    { "caption": "-" }
+]

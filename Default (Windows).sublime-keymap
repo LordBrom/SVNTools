@@ -8,5 +8,6 @@
 	{ "keys": ["ctrl+alt+b","ctrl+alt+u"], "command": "svn_update_repo"     },
 	{ "keys": ["ctrl+alt+b","ctrl+alt+a"], "command": "svn_add_file"        },
 	{ "keys": ["ctrl+alt+b","ctrl+alt+s"], "command": "svn_repo_status"     },
-	{ "keys": ["ctrl+alt+b","ctrl+alt+n"], "command": "svn_test"        }
+	{ "keys": ["ctrl+alt+b","ctrl+alt+n"], "command": "svn_test"            },
+	{ "keys": ["ctrl+alt+l"],              "command": "svn_show_log"        }
 ]

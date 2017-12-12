@@ -14,6 +14,7 @@ from .Commands.svnRepoStatusCommand import *
 from .Commands.svnUpdateRepoCommand import *
 from .Commands.svnDiscardChangesCommand import *
 from .Commands.svnShowChangesCommand import *
+# from .Commands.svnShowLogCommand import *
 
 from .Commands.svnCommitCommand import *
 from .Commands.svnCommitLastCommand import *
@@ -88,3 +89,16 @@ class svnEventListener(sublime_plugin.EventListener, svnController):
 
     def on_post_save_async(self, view):
         svn_set_status_items(self, view)
+
+# class svnShowLogCommand(sublime_plugin.TextCommand, svnController):
+#     def run(self, edit, paths=None):
+#         self.svnDir = self.get_svn_dir();
+#         if len(self.svnDir) == 0:
+#             return;
+
+#         if paths == None:
+#             paths = self.get_scoped_path('file')
+#         else:
+#             paths = paths[0]
+
+#         self.run_svn_command([], False, 'log', paths);
