@@ -28,9 +28,6 @@ def plugin_loaded():
     sublime.avibeSVNToolsLastComment = ""
     sublime.avibeSVNToolsScopes = ['Commit Scope: Full Repository','Commit Scope: Current File','Commit Scope: Current Directory']
     sublime.avibeSVNScopes = ['Current File','Current Directory','Full Repository']
-    print("==============")
-    print("loaded")
-    print("==============")
 
 class ChangeLog(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
