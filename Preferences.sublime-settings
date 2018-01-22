@@ -3,6 +3,7 @@
 	"SVN.history": [],
 	"SVN.show_status_bar_info": 1,
 	"SVN.show_diff_in_status_bar": 0,
+	"SVN.show_svn_status_in_status_bar": 1,
 	"SVN.confirm_new_files_on_commit": 1,
 	"SVN.log_limit" : 1000,
 	"SVN.tortoiseproc_path": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe"
