@@ -27,6 +27,10 @@ def svn_set_status_items(self, view):
                         view.set_status('AACsvnTool', 'diff:' + u'\u2260' )
                     else:
                         view.set_status('AACsvnTool', 'diff:' + u'\u003D' )
+                    if svn_settings().get('SVN.show_svn_status_in_status_bar', 0) == 1:
+                        view.set_status('AADsvnTool', 'status:' + procText )
+                    else:
+                        view.erase_status('AADsvnTool')
                 else:
                     view.set_status('AACsvnTool', 'diff:' + u'\u003D' )
 
@@ -37,3 +41,4 @@ def svn_set_status_items(self, view):
         view.erase_status('AAAsvnTool')
         view.erase_status('AABsvnTool')
         view.erase_status('AACsvnTool')
+        view.erase_status('AADsvnTool')
