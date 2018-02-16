@@ -63,7 +63,7 @@ class svnController():
 
         return self.svnDir
 
-    def run_svn_command(self, params, test = True, cmd = '', dir = ''):
+    def run_svn_command(self, params, test = True, cmd = '', dir = '', stripResult = True):
         startupinfo = None
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -91,7 +91,10 @@ class svnController():
 
 
         if test:
-            return proc.communicate()[0].strip( ).decode()
+            if stripResult:
+                return proc.communicate()[0].strip( ).decode()
+            else:
+                return proc.communicate()[0].decode()
         else:
             return 'done'
 
