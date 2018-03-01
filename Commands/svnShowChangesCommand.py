@@ -11,7 +11,7 @@ class svnShowChangesCommand(sublime_plugin.TextCommand, svnController):
 
         self.svnDir = self.get_scoped_path('file');
 
-        procText = self.run_svn_command([ "svn", "diff", self.svnDir]);
+#         procText = self.run_svn_command([ "svn", "diff", self.svnDir]);
         procText = self.run_svn_command([], False, 'diff', self.svnDir);
 
 #         if len(procText):
