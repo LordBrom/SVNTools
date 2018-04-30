@@ -7,6 +7,6 @@
 	"SVN.log_limit" : 1000,
 	"SVN.tortoiseproc_path": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe",
 
-	"message_placeholders": ["Ticket number", "Comment"],
-	"message_template": "#[0]: [1]"
+	"SVN.message_placeholders": ["Ticket number", "Comment"],
+	"SVN.message_template": "#[0]: [1]"
 }

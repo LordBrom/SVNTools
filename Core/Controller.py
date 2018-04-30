@@ -6,7 +6,12 @@ import functools
 import datetime
 
 def svn_settings():
-    return sublime.load_settings( 'Preferences.sublime-settings' )
+    window = sublime.active_window()
+    view = window.active_view()
+    settings = view.settings()
+
+    return view.settings()
+    # return sublime.load_settings( 'Preferences.sublime-settings' )
 
 def show_output_panel(outputStr):
     window = sublime.active_window()

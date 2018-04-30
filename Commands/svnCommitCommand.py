@@ -17,7 +17,7 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
         pass
 
     def new_message(self):
-        self.message_placeholders = svn_settings().get('message_placeholders', ['message'])
+        self.message_placeholders = svn_settings().get('SVN.message_placeholders', ['message'])
         self.placeholders_filled = [];
         self.index = 0;
 
@@ -34,7 +34,7 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
             if self.index < len(self.message_placeholders):
                 self.message_prompt()
             else:
-                finalMessage = svn_settings().get('message_template', '[0]')
+                finalMessage = svn_settings().get('SVN.message_template', '[0]')
 
                 for index in range(len(self.message_placeholders)):
                     finalMessage = finalMessage.replace("["+ str(index) +"]", self.placeholders_filled[index])
