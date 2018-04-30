@@ -12,7 +12,6 @@ class svnGetChangedFileListCommand(sublime_plugin.TextCommand, svnController):
         self.svnDir = self.get_scoped_path('repo')
 
         self.fileList = list(svn_settings().get('SVN.history', []))
-        # self.fileList.insert(min(len(self.fileList), 1), 'New Log')
 
         sublime.active_window().show_quick_panel(self.fileList, self.on_ticket)
 

@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 
 from ..Core.Controller import *
+from ..Core.History import *
 
 class svnCommitHistoryCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
@@ -11,8 +12,7 @@ class svnCommitHistoryCommand(sublime_plugin.TextCommand, svnController):
 
         self.svnDir = self.get_scoped_path(svn_settings().get('SVN.commit_scope', 'file'))
 
-        self.fileList = list(svn_settings().get('SVN.history', []))
-        self.fileList.insert(min(len(self.fileList), 1), 'New Log')
+        self.fileList = svnHistory.get_history(includeNewLogOption = True)
 
         sublime.active_window().show_quick_panel(self.fileList, self.on_ticket)
 

@@ -5,6 +5,8 @@ import subprocess
 import functools
 import datetime
 
+from ..Core.History import *
+
 def svn_settings():
     window = sublime.active_window()
     view = window.active_view()
@@ -103,18 +105,18 @@ class svnController():
         else:
             return 'done'
 
-    def add_history(self, log):
-        history = svn_settings().get('SVN.history', [])
+    # def add_history(self, log):
+    #     history = svn_settings().get('SVN.history', [])
 
-        for item in list(history):
-            if item == log:
-                history.remove(item)
+    #     for item in list(history):
+    #         if item == log:
+    #             history.remove(item)
 
-        history.reverse()
-        history.append(log)
-        history.reverse()
-        svn_settings().set('SVN.history', history)
-        sublime.save_settings('Preferences.sublime-settings')
+    #     history.reverse()
+    #     history.append(log)
+    #     history.reverse()
+    #     svn_settings().set('SVN.history', history)
+    #     sublime.save_settings('Preferences.sublime-settings')
 
     def do_commit(self, message):
         if self.svnDir == None:
@@ -135,7 +137,7 @@ class svnController():
         if not "Committed revision" in procText:
             procText = "Could not commit revision; check for conflicts or other issues."
 
-        self.add_history(message)
+        svnHistory.add_history(message)
 
         sublime.status_message( procText + " (" + message + ")" )
 

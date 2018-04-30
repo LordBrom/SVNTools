@@ -42,6 +42,10 @@
                     "command": "open_file", "args": {"file": "${packages}/User/Default (Windows).sublime-keymap"},"caption": "Key Bindings – User"
                 },{
                     "caption": "-"
+                },{
+                    "command": "open_file", "args": {"file": "${packages}/User/SvnMessageHistory.sublime-settings"},"caption": "View History"
+                },{
+                    "caption": "-"
                 }]
             }]
         }]
