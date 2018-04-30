@@ -83,6 +83,8 @@
             { "caption": "Add file to repository",         "command": "svn_add_file"        },
             { "caption": "Get repository status",          "command": "svn_repo_status"     },
             { "caption": "Show SVN log",                   "command": "svn_show_log"        },
+            { "caption": "-" },
+            {"command": "open_file", "args": {"file": "${packages}/User/SvnMessageHistory.sublime-settings"},"caption": "View History" },
             { "caption": "-", "id": "end" }
         ]
     }
