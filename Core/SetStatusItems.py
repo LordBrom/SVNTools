@@ -22,9 +22,6 @@ def svn_set_status_items(self, view):
 
                 if len(procText):
                     procText = procText.split( '\n' )[0]
-                    print('===================')
-                    print("svn file status: '" + procText + "'")
-                    print('===================')
                     responseCol1 = procText[0] #File modifications
                     responseCol2 = procText[1] #File/Dir properties
                     responseCol3 = procText[2] #Lock status
