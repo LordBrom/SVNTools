@@ -29,7 +29,7 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
         prompt = self.message_placeholders[self.index];
         lastMessage = ""
         rememberLastMessage = svn_settings().get('SVN.remember_last_message', 1)
-        if rememberLastMessage == 1 && len(sublime.SVNToolsLastMessage) > self.index:
+        if rememberLastMessage == 1 and len(sublime.SVNToolsLastMessage) > self.index:
             lastMessage = sublime.SVNToolsLastMessage[self.index]
         sublime.active_window().show_input_panel(prompt + ":", lastMessage, self.on_submit, None, None)
 
