@@ -6,6 +6,7 @@
 	"SVN.confirm_new_files_on_commit": 1,
 	"SVN.log_limit" : 1000,
 	"SVN.tortoiseproc_path": "C:\\Program Files\\TortoiseSVN\\bin\\TortoiseProc.exe",
+	"SVN.remember_last_message": 1,
 
 	"SVN.message_placeholders": ["Ticket number", "Comment"],
 	"SVN.message_template": "#[0]: [1]"
