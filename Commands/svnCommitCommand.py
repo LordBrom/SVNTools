@@ -3,6 +3,8 @@ import sublime_plugin
 
 from ..Core.Controller import *
 
+sublime.SVNToolsLastMessage = []
+
 class svnCommitCommand(sublime_plugin.TextCommand, svnController):
     def run(self, edit):
         self.svnDir = self.get_svn_dir()
@@ -25,7 +27,10 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
 
     def message_prompt( self ):
         prompt = self.message_placeholders[self.index];
-        sublime.active_window().show_input_panel(prompt + ":", "", self.on_submit, None, None)
+        lastMessage = ""
+        if len(sublime.SVNToolsLastMessage) > self.index:
+            lastMessage = sublime.SVNToolsLastMessage[self.index]
+        sublime.active_window().show_input_panel(prompt + ":", lastMessage, self.on_submit, None, None)
 
     def on_submit(self, text):
         try:
@@ -35,6 +40,8 @@ class svnCommitCommand(sublime_plugin.TextCommand, svnController):
                 self.message_prompt()
             else:
                 finalMessage = svn_settings().get('SVN.message_template', '[0]')
+
+                sublime.SVNToolsLastMessage = self.placeholders_filled
 
                 for index in range(len(self.message_placeholders)):
                     finalMessage = finalMessage.replace("["+ str(index) +"]", self.placeholders_filled[index])
